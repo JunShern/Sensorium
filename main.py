@@ -43,7 +43,10 @@ w = 640
 h = 480
 cap.set(3, w) #960) 
 cap.set(4, h) #720)
+
+# BG subtraction setup
 backgroundImg = np.zeros((h,w),np.uint8)
+#fgbg = cv2.createBackgroundSubtractorMOG2()
 
 while (cap.isOpened()):
     # Read frame - if read end of video, ret is false
@@ -59,6 +62,7 @@ while (cap.isOpened()):
     
     # Difference
     diffImg = naiveSubtract(currentImg, backgroundImg)
+    #diffImg = fgbg.apply(frame) # Has an error about numpy:allocate :(
     cv2.imshow('Difference', diffImg)
 
     # Pixellate Difference
