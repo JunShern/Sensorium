@@ -1,10 +1,17 @@
 import numpy as np
 import cv2
 
-def pixelize(img) :
-    cv2.resize(img, (10,10), interpolation=cv2.INTER_AREA);
-    #cv2.resize(img, (640, 480), interpolation=cv2.INTER_LINEAR);
-    return 
+def pixelize(img, numCols, numRows) :
+    rectW = frame.shape[1] / numCols
+    rectH = frame.shape[0] / numRows
+    # CHANGE LATER - this method is very slow! Don't use loops, do vectorized maths
+    for i in range(width):
+        for j in range(height):
+            color = small[j,i]
+            pixelImg = cv2.rectangle(img, (i*rectW,j*rectH), ((i+1)*rectW,(j+1)*rectH), int(color), -1)
+            font = cv2.FONT_HERSHEY_SIMPLEX
+            cv2.putText(pixelImg, str(color), (i*rectW+1,(j+1)*rectH-3), font, 0.3, (255,255,255), 1, cv2.LINE_AA)
+    return pixelImg
 
 width = 16
 height = 12
@@ -28,16 +35,7 @@ while (cap.isOpened()):
     # Shrink
     small = cv2.resize(gray, (width, height), interpolation=cv2.INTER_AREA)
 
-    pixelImg = gray
-    rectW = frame.shape[1] / width
-    rectH = frame.shape[0] / height
-    # CHANGE LATER - this method is very slow! Don't use loops, do vectorized maths
-    for i in range(width):
-        for j in range(height):
-            color = small[j,i]
-            pixelImg = cv2.rectangle(pixelImg, (i*rectW,j*rectH), ((i+1)*rectW,(j+1)*rectH), int(color), -1)
-            font = cv2.FONT_HERSHEY_SIMPLEX
-            cv2.putText(pixelImg, str(color), (i*rectW+1,(j+1)*rectH-3), font, 0.3, (255,255,255), 1, cv2.LINE_AA)
+    pixelImg = pixelize(gray, width, height)
     cv2.imshow('Pixelized', pixelImg)
 
     # 'q' is for Quit
