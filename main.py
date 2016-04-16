@@ -13,8 +13,16 @@ def pixelize(img, numCols, numRows) :
             cv2.putText(pixelImg, str(color), (i*rectW+1,(j+1)*rectH-3), font, 0.3, (255,255,255), 1, cv2.LINE_AA)
     return pixelImg
 
-width = 3
-height = 3
+def calibrate(event, x, y, flags, param):
+    if event == cv2.EVENT_LBUTTONDBLCLK: # Double-click
+        print "Hello! I was clicked at ", x, y
+
+# Mouse input
+cv2.namedWindow('image')
+cv2.setMouseCallback('image', calibrate)
+
+width = 16
+height = 12
 
 cap = cv2.VideoCapture(0)
 #cap = cv2.VideoCapture('video.mp4')
@@ -39,7 +47,7 @@ while (cap.isOpened()):
     
     #ret, threshImg = cv2.threshold(pixelImg,127,255,cv2.THRESH_BINARY)
     
-    cv2.imshow('Pixelized', threshImg)
+    cv2.imshow('image', pixelImg)
 
     # 'q' is for Quit
     if cv2.waitKey(1) & 0xFF == ord('q'):
