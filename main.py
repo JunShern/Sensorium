@@ -4,14 +4,15 @@ import cv2
 def pixelize(img, numCols, numRows) :
     rectW = frame.shape[1] / numCols
     rectH = frame.shape[0] / numRows
+    small = cv2.resize(img, (width, height), interpolation=cv2.INTER_AREA)
     # CHANGE LATER - this method is very slow! Don't use loops, do vectorized maths
     for i in range(width):
         for j in range(height):
             color = small[j,i]
-            pixelImg = cv2.rectangle(img, (i*rectW,j*rectH), ((i+1)*rectW,(j+1)*rectH), int(color), -1)
+            pImg = cv2.rectangle(img, (i*rectW,j*rectH), ((i+1)*rectW,(j+1)*rectH), int(color), -1)
             font = cv2.FONT_HERSHEY_SIMPLEX
-            cv2.putText(pixelImg, str(color), (i*rectW+1,(j+1)*rectH-3), font, 0.3, (255,255,255), 1, cv2.LINE_AA)
-    return pixelImg
+            cv2.putText(pImg, str(color), (i*rectW+1,(j+1)*rectH-3), font, 0.3, (255,100,255), 1, cv2.LINE_AA)
+    return pImg
 
 def calibrate(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDBLCLK: # Double-click
@@ -21,13 +22,13 @@ def calibrate(event, x, y, flags, param):
 
 def naiveSubtract(currentImg, backgroundImg):
     diff = currentImg - backgroundImg
-    #ret, threshImg = cv2.threshold(pixelImg,127,255,cv2.THRESH_TOZERO)
-    ret, threshImg = cv2.threshold(diff,250,255,cv2.THRESH_TOZERO_INV)
-    return threshImg
+    ret, tImg = cv2.threshold(diff,250,255,cv2.THRESH_TOZERO_INV)
+    return tImg
 
 # Mouse input
 cv2.namedWindow('Difference')
 cv2.setMouseCallback('Difference', calibrate)
+cv2.setMouseCallback('Difference Pixels', calibrate) # doesn't seem to work?
 
 # Video setup
 width = 16
@@ -52,8 +53,6 @@ while (cap.isOpened()):
     currentImg = gray.copy()
     cv2.imshow('Current', currentImg)
 
-    # Shrink
-    small = cv2.resize(gray, (width, height), interpolation=cv2.INTER_AREA)
     # Pixellate
     pixelImg = pixelize(gray, width, height)
     #cv2.imshow('Grayscale Pixels', pixelImg)
@@ -61,7 +60,12 @@ while (cap.isOpened()):
     # Difference
     diffImg = naiveSubtract(currentImg, backgroundImg)
     cv2.imshow('Difference', diffImg)
-    
+
+    # Pixellate Difference
+    diffPixelImg = pixelize(diffImg, width, height)
+    ret, diffPixelImg = cv2.threshold(diffPixelImg,50,255,cv2.THRESH_BINARY)
+    cv2.imshow('Difference Pixels', diffPixelImg)
+
     # 'q' is for Quit
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
