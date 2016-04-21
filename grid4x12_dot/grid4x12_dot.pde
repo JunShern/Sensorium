@@ -12,8 +12,6 @@ void setup()
   opc = new OPC(this, "127.0.0.1", 7890);
 
   //opc.ledGrid(index, stripLength, numStrips, x, y, ledSpacing, stripSpacing, angle, zigzag)
-  //opc.ledGrid(0*48, 12, 4, width/2, height/2, width/12.0, height/4.0, 0, true); // Channel 1
-  
   opc.ledGrid(0*48, 12, 4, width/2, height*1/6, width/12.0, height/12.0, 0, true); // Channel 1  
   opc.ledGrid(1*48, 12, 4, width/2, height*3/6, width/12.0, height/12.0, 0, true); // Channel 2
   opc.ledGrid(2*48, 12, 4, width/2, height*5/6, width/12.0, height/12.0, 0, true); // Channel 3  
