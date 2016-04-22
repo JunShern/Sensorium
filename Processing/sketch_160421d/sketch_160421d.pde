@@ -57,4 +57,6 @@ void draw() {
       rect(x,y,videoScale,videoScale);
     }
   }
+  filter(THRESHOLD);
+  filter(GRAY);
 }
