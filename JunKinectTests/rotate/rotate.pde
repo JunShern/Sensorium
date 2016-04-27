@@ -1,13 +1,11 @@
 import SimpleOpenNI.*;
 
 SimpleOpenNI kinect;
-int count = 1;
 
 void setup() {
-  size(640, 480);
+  size(480, 640);
   kinect = new SimpleOpenNI(this);
   kinect.enableDepth();
-  
 }
 
 void draw() {
@@ -15,12 +13,16 @@ void draw() {
   
   // Capture
   PImage depthImage = kinect.depthImage();
-  int[] depthValues = kinect.depthMap();
-
-  depthImage.loadPixels();
+  //translate(0, 0);
+  //translate(width/2,height/2);
+  //rotate(PI*3/2);
+  rotate(PI/2);
+  rect(width/2, height/2, 50, 100);
   
+  //translate(width,0);
   // Draw image
-  image(depthImage, 0, 0);
+  //image(depthImage, 0, 0);
+  
 }
 
 void mousePressed() {
@@ -31,6 +33,5 @@ void mousePressed() {
   float inches = millimeters / 25.4;
   println("mm: ", millimeters, "  Inches: " + inches);
   println("");
-  //println(depthImage.pixels[]);
 }
 

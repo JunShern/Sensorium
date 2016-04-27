@@ -15,10 +15,16 @@ void draw() {
   
   // Capture
   PImage depthImage = kinect.depthImage();
+  PImage copyImage;
   int[] depthValues = kinect.depthMap();
 
   depthImage.loadPixels();
-  
+  for (int i = 0; i < width * height; i++) {
+    //println(depthImage.pixels[i]);
+    if (depthValues[i] > 3000) { 
+      depthImage.pixels[i] = color(0);
+    }
+  }
   // Draw image
   image(depthImage, 0, 0);
 }
