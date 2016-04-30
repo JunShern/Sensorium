@@ -1,71 +1,53 @@
 OPC opc;
 PImage dot;
-  
-import processing.video.*;
-
-Capture cam;
 
 void setup()
 {
-  size(160, 120);
-
-  // Load a sample image
-  dot = loadImage("dot.png");
-
+  size(540, 720);
   // Connect to the local instance of fcserver
   opc = new OPC(this, "127.0.0.1", 7890);
-
-  //opc.ledGrid(index, stripLength, numStrips, x, y, ledSpacing, stripSpacing, angle, zigzag)
-  opc.ledGrid(0*64, 12, 4, width/2, height*1/6, width/12.0, height/12.0, 0, true); // Channel 0
-  opc.ledGrid(1*64, 12, 4, width/2, height*3/6, width/12.0, height/12.0, 0, true); // Channel 1
-  opc.ledGrid(2*64, 12, 4, width/2, height*5/6, width/12.0, height/12.0, 0, true); // Channel 2  
-
-  String[] cameras = Capture.list();
-  
-  if (cameras.length == 0) {
-    println("There are no cameras available for capture.");
-    exit();
-  } else {
-    println("Available cameras:");
-    for (int i = 0; i < cameras.length; i++) {
-      println(i);
-      println(cameras[i]);
-    }
-    
-    // The camera can be initialized directly using an 
-    // element from the array returned by list():
-    cam = new Capture(this, cameras[15]);
-    
-    //cam = new Capture(this,320,240,30);
-    cam.start();     
-  }
-
-}
+  initLED();
+} 
 
 void draw()
 {
   background(0);
 
   // Draw the image, centered at the mouse location
-  float dotSize = height * 0.7;
-  image(dot, mouseX - dotSize/2, mouseY - dotSize/2, dotSize, dotSize);
+  rectMode(CENTER);
+  rect(mouseX, mouseY, 120, 120); 
+//  float dotSize = height * 0.5;
+//  image(dot, mouseX - dotSize/2, mouseY - dotSize/2, dotSize, dotSize);
+
+}
 
 
-
-  if (cam.available() == true) {
-    cam.read();
-    //println("ddddddddddd");
-  } else {
-    //println("NOT AVAILABLE");
-  }
-  image(cam, 0, 0);
+void initLED() {
+  opc.ledStrip((0+0)*64 + 0, 18, width/2, height*1/48, width/18.0, 0, false);
+  opc.ledStrip((0+0)*64 + 19, 18, width/2, height*3/48, width/18.0, 0, true);
+  opc.ledStrip((0+0)*64 + 38, 18, width/2, height*5/48, width/18.0, 0, false);
+  opc.ledStrip((0+1)*64 + 0, 18, width/2, height*7/48, width/18.0, 0, true);
+  opc.ledStrip((0+1)*64 + 19, 18, width/2, height*9/48, width/18.0, 0, false);
+  opc.ledStrip((0+1)*64 + 38, 18, width/2, height*11/48, width/18.0, 0, true);
+  opc.ledStrip((0+2)*64 + 0, 18, width/2, height*13/48, width/18.0, 0, false);
+  opc.ledStrip((0+2)*64 + 19, 18, width/2, height*15/48, width/18.0, 0, true);
+  opc.ledStrip((0+2)*64 + 38-2, 18, width/2, height*17/48, width/18.0, 0, false);
   
-  // The following does the same, and is faster when just drawing the image
-  // without any additional resizing, transformations, or tint.
-  //set(0, 0, cam);
-  filter(THRESHOLD);
-  filter(GRAY);
-  filter(INVERT);
-  delay(1);
+  opc.ledStrip((3+0)*64 + 0, 18, width/2, height*19/48, width/18.0, 0, true);
+  opc.ledStrip((3+0)*64 + 19, 18, width/2, height*21/48, width/18.0, 0, false);
+  opc.ledStrip((3+0)*64 + 38, 18, width/2, height*23/48, width/18.0, 0, true);
+  opc.ledStrip((3+1)*64 + 0, 18, width/2, height*25/48, width/18.0, 0, false);
+  opc.ledStrip((3+1)*64 + 19, 18, width/2, height*27/48, width/18.0, 0, true);
+  opc.ledStrip((3+1)*64 + 38, 18, width/2, height*29/48, width/18.0, 0, false);
+  opc.ledStrip((3+2)*64 + 0, 18, width/2, height*31/48, width/18.0, 0, true);
+  opc.ledStrip((3+2)*64 + 19-2, 18, width/2, height*33/48, width/18.0, 0, false);
+  opc.ledStrip((3+2)*64 + 38-2, 18, width/2, height*35/48, width/18.0, 0, true);
+  
+  opc.ledStrip((6+0)*64 + 0, 18, width/2, height*37/48, width/18.0, 0, false);
+  opc.ledStrip((6+0)*64 + 19, 18, width/2, height*39/48, width/18.0, 0, true);
+  opc.ledStrip((6+0)*64 + 38, 18, width/2, height*41/48, width/18.0, 0, false);
+  opc.ledStrip((6+1)*64 + 0, 18, width/2, height*43/48, width/18.0, 0, true);
+  opc.ledStrip((6+1)*64 + 19, 18, width/2, height*45/48, width/18.0, 0, false);
+  opc.ledStrip((6+1)*64 + 38, 18, width/2, height*47/48, width/18.0, 0, true);  
 }
 
