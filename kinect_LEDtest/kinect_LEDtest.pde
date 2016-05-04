@@ -2,14 +2,21 @@ OPC opc;
 PImage dot;
 int backgroundThreshold = 3000;  
 import SimpleOpenNI.*;
-
 SimpleOpenNI kinect;
+
+int closestValue;
+int closestX;
+int closestY;
+IntList xArray;
+IntList yArray;
+int maxArrayLength = 15;
 
 void setup()
 {
   size(640, 480);
   kinect = new SimpleOpenNI(this);
   kinect.enableDepth();
+  kinect.enableRGB();
   
   // Connect to the local instance of fcserver
   opc = new OPC(this, "127.0.0.1", 7890);
@@ -32,7 +39,7 @@ void draw()
     } 
   }
   // Draw image
-  tint(255, 128);
+  //tint(255, 128);
   image(depthImage, 0, 0);
   scale(-1,1);//flip on X axis
 }
