@@ -6,80 +6,75 @@
         {
             "type": "fadecandy",
 	    "serial": "YSWUOKMKLTKDMZOB",
-            "map": [ [ 0, 0, 0, 512 ] ]
+            "map": [ [ 0, 0, 0, 511 ] ]
         },
         {
             "type": "fadecandy",
 	    "serial": "HNJRSGCCQSBVHTKR",
-            "map": [ [ 0, 513, 0, 1024 ] ]
+            "map": [ [ 0, 512, 0, 1023 ] ]
         },
         {
             "type": "fadecandy",
 	    "serial": "RXDNUEEGICZVLHMJ",
-            "map": [ [ 0, 1025, 0, 1536 ] ]
+            "map": [ [ 0, 1024, 0, 1535 ] ]
         },
         {
             "type": "fadecandy",
 	    "serial": "DLZTUSWIHNKHILAV",
-            "map": [ [ 0, 1537, 0, 2048 ] ]
-        },
-        {
-            "type": "fadecandy",
-	    "serial": "BTRPKCGMJBIFUNEP",
-            "map": [ [ 0, 2049, 0, 2560 ] ]
+            "map": [ [ 0, 1536, 0, 2047 ] ]
         },
         {
             "type": "fadecandy",
 	    "serial": "DPFTPJXTRLYDETOH",
-            "map": [ [ 0, 2561, 0, 3072 ] ]
+            "map": [ [ 0, 2048, 0, 2559 ] ]
         },
         {
             "type": "fadecandy",
 	    "serial": "TFJPSYLDDVOTIFYZ",
-            "map": [ [ 0, 3073, 0, 3584 ] ]
+            "map": [ [ 0, 2560, 0, 3071 ] ]
         },
         {
             "type": "fadecandy",
 	    "serial": "VTRXPLFTPNEFCNAD",
-            "map": [ [ 0, 3585, 0, 4096 ] ]
+            "map": [ [ 0, 3072, 0, 3583 ] ]
         },
+	
 
-
-
+	
         {
             "type": "fadecandy",
 	    "serial": "IIIOCEFBHHUFSXCB",
-            "map": [ [ 0, 4097, 0, 4608 ] ]
+            "map": [ [ 0, 3584, 0, 4095 ] ]
         },
         {
             "type": "fadecandy",
 	    "serial": "BTRPKCGMJBIFUNEP",
-            "map": [ [ 0, 4609, 0, 5120 ] ]
+            "map": [ [ 0, 4096, 0, 4607 ] ]
         },
         {
             "type": "fadecandy",
 	    "serial": "AIOQWQAGDFEHAFQZ",
-            "map": [ [ 0, 5121, 0, 5632 ] ]
+            "map": [ [ 0, 4608, 0, 5119 ] ]
         },
         {
             "type": "fadecandy",
 	    "serial": "OQISHZSQOCRRLBAF",
-            "map": [ [ 0, 5633, 0, 6144 ] ]
+            "map": [ [ 0, 5120, 0, 5631 ] ]
         },
         {
             "type": "fadecandy",
 	    "serial": "JQHEV",
-            "map": [ [ 0, 6145, 0, 6656 ] ]
+            "map": [ [ 0, 5632, 0, 6143 ] ]
         },
         {
             "type": "fadecandy",
 	    "serial": "OGAKPLLDGYBLDZKZ",
-            "map": [ [ 0, 6657, 0, 7168 ] ]
+            "map": [ [ 0, 6144, 0, 6655 ] ]
         },
         {
             "type": "fadecandy",
 	    "serial": "UIGABXQUCWHPHPOF",
-            "map": [ [ 0, 7169, 0, 7680 ] ]
+            "map": [ [ 0, 6656, 0, 7167 ] ]
         }
     ]
 }
