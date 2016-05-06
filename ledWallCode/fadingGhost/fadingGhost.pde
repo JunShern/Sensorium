@@ -35,11 +35,6 @@ void setup()
 void draw()
 {
   background(0);
-  // Apply fade
-  tint(255,255,255,220);
-  //fade.resize(width*0.99, height*0.99);
-  image(fade, 10, 10);
-  noTint();
   
   // Capture
   kinect.update();
@@ -76,7 +71,7 @@ void draw()
   int pixelHeight = height/48;//edgeImage.height;
   int pixelWidth = width/126;//edgeImage.width;
   for (int j=0; j<edgeImage.height; j++) {  
-    for (int i=0; i<edgeImage.width; i++) {
+    for (int i=0; i<edgeImage.width; i++) { 
       int index = i + j*edgeImage.width;
       fill(edgeImage.pixels[index]);
       //fill(255);
@@ -84,11 +79,13 @@ void draw()
     }
   }
   
+  // Apply fade
+  tint(255,255,255,220);
+  //fade.resize(width*0.99, height*0.99);
+  image(fade, -10, 0);
+  noTint();
   fade = get(0,0,width,height);
-  //edgeImage.resize(kinectW, kinectH);
-  //image(edgeImage, 0,0);
-
-  // Additional art
+  
 }
 
 void mousePressed() {

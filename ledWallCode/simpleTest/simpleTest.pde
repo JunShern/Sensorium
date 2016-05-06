@@ -11,6 +11,6 @@ void setup()
 void draw()
 {
   background(0);
-  rect(mouseX, mouseY, 100, 100);
+  rect(mouseX, mouseY, 60, 60);
 }
 

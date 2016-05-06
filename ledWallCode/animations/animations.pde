@@ -23,7 +23,7 @@ void setup()
 
 void draw()
 {
-  background(0, 5);
+  background(0);
   // Apply fade
   tint(255,255,255,220);
   //fade.resize(width*0.99, height*0.99);

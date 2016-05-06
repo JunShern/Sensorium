@@ -13,6 +13,8 @@ PImage fade;
 int REDUCE_FACTOR = 8; // Higher reduce factor increases the smoothing
 CannyEdgeDetector detector = new CannyEdgeDetector();
 
+int sequencerXpos = 0; 
+
 void setup()
 {
   size(1260, 480); // 126 pixels wide, 48 pixels tall 
@@ -76,7 +78,7 @@ void draw()
   int pixelHeight = height/48;//edgeImage.height;
   int pixelWidth = width/126;//edgeImage.width;
   for (int j=0; j<edgeImage.height; j++) {  
-    for (int i=0; i<edgeImage.width; i++) {
+    for (int i=0; i<edgeImage.width-5; i++) {
       int index = i + j*edgeImage.width;
       fill(edgeImage.pixels[index]);
       //fill(255);
@@ -85,10 +87,13 @@ void draw()
   }
   
   fade = get(0,0,width,height);
-  //edgeImage.resize(kinectW, kinectH);
-  //image(edgeImage, 0,0);
 
-  // Additional art
+  // Sequencer
+  int opacity = 200 * (width-sequencerXpos*3/2) / width;
+  fill(255, opacity);
+  rect(sequencerXpos, 0, 10, height);
+  sequencerXpos = (sequencerXpos+20) % (width*2/3);
+
 }
 
 void mousePressed() {

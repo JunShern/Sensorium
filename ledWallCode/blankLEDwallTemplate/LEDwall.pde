@@ -40,6 +40,8 @@ public class LEDwall
         boolean reversed = boolean(rowNumber % 2);
         this.opc.ledStrip(index, numLEDsPerRow, x, y, xSpacing, angle, reversed);
         rowNumber++;
+        // Make sure the bent LED stays off
+        this.opc.setPixel(index+numLEDsPerRow, color(0)); // Turn off at the end of the row
       } 
     }
   }
