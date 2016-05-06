@@ -30,12 +30,12 @@
         },
         {
             "type": "fadecandy",
-	    "serial": "TFJPSYLDDVOTIFYZ",
+	    "serial": "PTPPEOQOZDMJQHEV",
             "map": [ [ 0, 2560, 0, 3071 ] ]
         },
         {
             "type": "fadecandy",
-	    "serial": "VTRXPLFTPNEFCNAD",
+	    "serial": "OGAKPLLDGYBLDZKZ",
             "map": [ [ 0, 3072, 0, 3583 ] ]
         },
 	
@@ -63,12 +63,12 @@
         },
         {
             "type": "fadecandy",
-	    "serial": "PTPPEOQOZDMJQHEV",
+	    "serial": "TFJPSYLDDVOTIFYZ",
             "map": [ [ 0, 5632, 0, 6143 ] ]
         },
         {
             "type": "fadecandy",
-	    "serial": "OGAKPLLDGYBLDZKZ",
+	    "serial": "VTRXPLFTPNEFCNAD",
             "map": [ [ 0, 6144, 0, 6655 ] ]
         },
         {

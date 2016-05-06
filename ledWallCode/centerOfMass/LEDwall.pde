@@ -36,6 +36,7 @@ public class LEDwall
       for (int r = 0; r < 3; r++) {
         int index = panelStartingIndex + channelIndex + r * (numLEDsPerRow+1); // +1 index because of strip bending
         if (rowNumber > 0 && rowNumber % 8 == 0) index -= 2; // skip 1 LED and 1 bend at the start of a new strip
+        if (rowNumber == 17) index -= 2;
         int y = panelCenterY - panelHeight/2 + ySpacing/2 + rowNumber * ySpacing;
         boolean reversed = boolean(rowNumber % 2);
         this.opc.ledStrip(index, numLEDsPerRow, x, y, xSpacing, angle, reversed);
