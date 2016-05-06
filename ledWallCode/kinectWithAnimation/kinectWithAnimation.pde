@@ -13,7 +13,7 @@ PImage fade;
 int REDUCE_FACTOR = 8; // Higher reduce factor increases the smoothing
 CannyEdgeDetector detector = new CannyEdgeDetector();
 
-
+int cometCanvasW = width/2;
 int numComets = 10;
 ArrayList<Comet> comets = new ArrayList<Comet>();
 ArrayList<Comet> babyComets = new ArrayList<Comet>();
@@ -46,49 +46,6 @@ void draw()
   image(fade, 1, 1);
   noTint();
   
-  // Capture
-  kinect.update();
-  PImage depthImage = kinect.depthImage();
-  int[] depthValues = kinect.depthMap();
-
-  // Thresholding
-  depthImage.loadPixels();
-  for (int i = 0; i < depthImage.width * depthImage.height; i++) {
-    //println(depthImage.pixels[i]);
-    if (depthValues[i] > maxDistance) { 
-      depthImage.pixels[i] = color(0);
-    }
-  }
-
-  // Edge detection
-  PImage edgeImage;
-  PImage depthCopy = createImage(depthImage.width, depthImage.height, RGB);
-  depthCopy.copy(depthImage, 0, 0, depthImage.width, depthImage.height, 0, 0, 640, 480);
-  depthCopy.resize(depthCopy.width/REDUCE_FACTOR, 0);
-  detector.setSourceImage((java.awt.image.BufferedImage)depthCopy.getImage());
-  detector.process();
-  BufferedImage edges = detector.getEdgesImage();
-  edgeImage = new PImage(edges);
-  edgeImage.resize(edgeImage.width*48/edgeImage.height, 48); // Make the height fit, maintaining aspect ratio on width
-  
-  // Save image for averaging
-  //PImage prevImage = createImage(
-  // Draw image 
-  edgeImage.loadPixels();
-  int pixelHeight = height/48;//edgeImage.height;
-  int pixelWidth = width/126;//edgeImage.width;
-  for (int j=0; j<edgeImage.height; j++) {  
-    for (int i=0; i<edgeImage.width; i++) {
-      int index = i + j*edgeImage.width;
-      fill(edgeImage.pixels[index]);
-      //fill(255);
-      ellipse(i*pixelWidth + pixelWidth/2, j*pixelHeight + pixelHeight/2, pixelWidth/2, pixelHeight/2);
-    }
-  }
-  
-  //edgeImage.resize(kinectW, kinectH);
-  //image(edgeImage, 0,0);
-
   // Additional art
   ArrayList<Comet> deadComets = new ArrayList<Comet>();
   
@@ -118,11 +75,56 @@ void draw()
   
   // MOARRR
   if (random(100) > 96 || numComets < 5) {
-    Comet c = new Comet(random(width), random(height), 5, 5, random(10,21));
+    Comet c = new Comet(width-cometCanvasW+random(cometCanvasW), random(height), 5, 5, random(10,21));
     comets.add(c);
     numComets++;
   }
   fade = get(0,0,width,height);
+  
+  
+  
+  // Capture
+  kinect.update();
+  PImage depthImage = kinect.depthImage();
+  int[] depthValues = kinect.depthMap();
+
+  // Thresholding
+  depthImage.loadPixels();
+  for (int i = 0; i < depthImage.width * depthImage.height; i++) {
+    //println(depthImage.pixels[i]);
+    if (depthValues[i] > maxDistance) { 
+      depthImage.pixels[i] = color(0);
+    }
+  }
+
+  // Edge detection
+  PImage edgeImage;
+  PImage depthCopy = createImage(depthImage.width, depthImage.height, RGB);
+  depthCopy.copy(depthImage, 0, 0, depthImage.width, depthImage.height, 0, 0, 640, 480);
+  depthCopy.resize(depthCopy.width/REDUCE_FACTOR, 0);
+  detector.setSourceImage((java.awt.image.BufferedImage)depthCopy.getImage());
+  detector.process();
+  BufferedImage edges = detector.getEdgesImage();
+  edgeImage = new PImage(edges);
+  int offsetX = 7;
+  int offsetY = 7;
+  edgeImage = edgeImage.get(offsetX, offsetY, edgeImage.width-2*offsetX, edgeImage.height-2*offsetY); // Crop the image - dead space created at edges due to gaussian kernel
+  edgeImage.resize(edgeImage.width*48/edgeImage.height, 48); // Make the height fit, maintaining aspect ratio on width
+  
+  // Save image for averaging
+  //PImage prevImage = createImage(
+  // Draw image 
+  edgeImage.loadPixels();
+  int pixelHeight = height/48;//edgeImage.height;
+  int pixelWidth = width/126;//edgeImage.width;
+  for (int j=0; j<edgeImage.height; j++) {  
+    for (int i=0; i<edgeImage.width; i++) {
+      int index = i + j*edgeImage.width;
+      fill(edgeImage.pixels[index]);
+      //fill(255);
+      ellipse(i*pixelWidth + pixelWidth/2, j*pixelHeight + pixelHeight/2, pixelWidth/2, pixelHeight/2);
+    }
+  }
 
 }
 
