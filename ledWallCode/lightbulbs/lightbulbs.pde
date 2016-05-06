@@ -6,10 +6,10 @@ OPC opc;
 
 SimpleOpenNI[] kinects;
 
-int numLightbulbs = 100;
+int numLightbulbs = 50;
 Lightbulb[] lightbulbs = new Lightbulb[numLightbulbs];
 
-int numKinects = 2;
+int numKinects = 1;
 int maxDistance = 3000; 
 
 PImage orig;
@@ -23,7 +23,7 @@ void setup()
   size(1260, 480); // 126 pixels wide, 48 pixels tall 
 
   // Kinect
-  kinects = new SimpleOpenNI[2];
+  kinects = new SimpleOpenNI[numKinects];
   for (int i=0; i<numKinects; i++) {
     kinects[i] = new SimpleOpenNI(i, this);
     kinects[i].enableDepth();
@@ -39,12 +39,18 @@ void setup()
   
   // Lightbulbs 
   for (int i=0; i<numLightbulbs; i++) {
-    int x = int(random(0,125));
-    int y = int(random(0,47));  
+    int x = int(random(90,125));
+    int y = int(random(0,47));
+    if (random(100) > 40) {
+      x = int(random(60,125));
+      y = int(random(0,47));
+      if (random(100) > 40) {
+        x = int(random(40,125));
+        y = int(random(0,47));
+      }
+    }  
     lightbulbs[i] = new Lightbulb(pixelCoordinateX(x), pixelCoordinateY(y));
   }
-
-  
   
   fade = get(0,0,width,height);
 }
@@ -68,8 +74,9 @@ void draw()
   image(fade, 10, 10);
   noTint();
   
-  handleKinect(kinects[0], 0, 0);
-  handleKinect(kinects[1], width/2, 0);
+  for (int i=0; i<numKinects; i++) {
+    handleKinect(kinects[i], width/2, 0);
+  }
   
   fade = get(0,0,width,height);
   //edgeImage.resize(kinectW, kinectH);
@@ -133,11 +140,16 @@ void handleKinect(SimpleOpenNI kinect, int xpos, int ypos) {
   edgeImage.loadPixels();
   int pixelHeight = height/48;//edgeImage.height;
   int pixelWidth = width/126;//edgeImage.width;
-  for (int j=0; j<edgeImage.height; j++) {  
+  for (int j=0; j<edgeImage.height; j++) {
     for (int i=0; i<edgeImage.width; i++) {
       int index = i + j*edgeImage.width;
-      fill(edgeImage.pixels[index]);
-      //fill(255);
+      //color px = edgeImage.pixels[index];
+      if (brightness(edgeImage.pixels[index]) > 10) {
+        fill(color(11));
+      } else {
+        fill(color(0));
+      }
+      //fill(edgeImage.pixels[index]);
       ellipse(xpos + i*pixelWidth + pixelWidth/2, j*pixelHeight + pixelHeight/2, pixelWidth/2, pixelHeight/2);
     }
   }

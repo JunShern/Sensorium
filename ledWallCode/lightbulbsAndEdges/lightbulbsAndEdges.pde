@@ -6,6 +6,10 @@ OPC opc;
 
 SimpleOpenNI[] kinects;
 
+int numLightbulbs = 50;
+//Lightbulb[] lightbulbs = new Lightbulb[numLightbulbs];
+ArrayList<Lightbulb> lightbulbs = new ArrayList<Lightbulb>();
+
 int numKinects = 2;
 int maxDistance = 3000; 
 
@@ -29,10 +33,26 @@ void setup()
   // Edge detection
   detector.setLowThreshold(0.5f);
   detector.setHighThreshold(1f);
-
+  
   // LED wall
   opc = new OPC(this, "127.0.0.1", 7890);
   LEDwall ledWall = new LEDwall(opc, 7, 2); // OPC, numHorizontalPanels, numVerticalPanels
+  
+  // Lightbulbs 
+  for (int i=0; i<numLightbulbs; i++) {
+    int xIndex = int(random(90,125));
+    int yIndex = int(random(0,47));
+    if (random(100) > 40) {
+      xIndex = int(random(60,125));
+      yIndex = int(random(0,47));
+      if (random(100) > 40) {
+        xIndex = int(random(40,125));
+        yIndex = int(random(0,47));
+      }
+    }
+    Lightbulb l = new Lightbulb(xIndex, yIndex);
+    lightbulbs.add(l);
+  }
   
   fade = get(0,0,width,height);
 }
@@ -43,18 +63,36 @@ void draw()
   // Apply fade
   tint(255,255,255,220);
   //fade.resize(width*0.99, height*0.99);
-  image(fade, 10, 10);
+  image(fade, 0, 0);
   noTint();
   
   for (int i=0; i<numKinects; i++) {
     handleKinect(kinects[i], i*width/2, 0);
   }
   
-  fade = get(0,0,width,height);
   //edgeImage.resize(kinectW, kinectH);
   //image(edgeImage, 0,0);
-
-  // Additional art
+  // Lightbulbs
+  for (Lightbulb l : lightbulbs) {  
+    l.update();
+    // Fading lightbulbs
+    int x = int(random(90,125));
+    int y = int(random(0,47));
+    if (random(1000) > 997) {
+      if (random(100) > 40) {
+        x = int(random(60,125));
+        y = int(random(0,47));
+        if (random(100) > 40) {
+          x = int(random(40,125));
+          y = int(random(0,47));
+        }
+      }
+      l.xpos = pixelCoordinateX(x); 
+      l.ypos = pixelCoordinateY(y);
+    }
+  }
+  
+  fade = get(0,0,width,height);
 }
 
 void mousePressed() {
@@ -107,13 +145,31 @@ void handleKinect(SimpleOpenNI kinect, int xpos, int ypos) {
   edgeImage.loadPixels();
   int pixelHeight = height/48;//edgeImage.height;
   int pixelWidth = width/126;//edgeImage.width;
-  for (int j=0; j<edgeImage.height; j++) {  
+  for (int j=0; j<edgeImage.height; j++) {
     for (int i=0; i<edgeImage.width; i++) {
       int index = i + j*edgeImage.width;
-      fill(edgeImage.pixels[index]);
-      //fill(255);
+      //color px = edgeImage.pixels[index];
+      if (brightness(edgeImage.pixels[index]) > 10) {
+        if (random(width) > 3*(xpos + i*pixelWidth + pixelWidth/2)/2) {
+          fill(color(200));
+        } else {
+          fill(color(11));
+        }
+      } else {
+        fill(color(0));
+      }
+      //fill(edgeImage.pixels[index]);
       ellipse(xpos + i*pixelWidth + pixelWidth/2, j*pixelHeight + pixelHeight/2, pixelWidth/2, pixelHeight/2);
     }
   }
 }
 
+int pixelCoordinateX(int x) {
+  int pixelWidth = width/126;//edgeImage.width;
+  return pixelWidth/2 + pixelWidth * x;
+}
+
+int pixelCoordinateY(int y) {
+  int pixelHeight = height/48;//edgeImage.height;
+  return pixelHeight/2 + pixelHeight * y;
+}

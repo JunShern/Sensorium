@@ -4,9 +4,9 @@ public class Lightbulb
   int xpos;
   int ypos;
   
-  Lightbulb(int xpos, int ypos) {
-    this.xpos = xpos;
-    this.ypos = ypos;
+  Lightbulb(int xIndex, int yIndex) {
+    this.xpos = pixelCoordinateX(xIndex);
+    this.ypos = pixelCoordinateY(yIndex);
   }
 
   void update() {
@@ -28,6 +28,20 @@ public class Lightbulb
     }
     println(brightness(get(this.xpos, this.ypos)));
     this.drawLightbulb(x, y);
+  }
+  
+  int pixelCoordinateX(int x) {
+    int pixelWidth = width/126;//edgeImage.width;
+    return pixelWidth/2 + pixelWidth * x;
+  }
+  
+  int pixelCoordinateY(int y) {
+    int pixelHeight = height/48;//edgeImage.height;
+    return pixelHeight/2 + pixelHeight * y;
+  }
+
+  void rebirth() {
+    
   }
 }
  
