@@ -1,5 +1,6 @@
 import SimpleOpenNI.*;
 SimpleOpenNI kinect;
+OPC opc;
 
 void setup()
 {
@@ -10,7 +11,7 @@ void setup()
   
   kinect = new SimpleOpenNI(this);
   kinect.enableDepth();
-  kinect.enableUser(SimpleOpenNI.SKEL_PROFILE_NONE); 
+  //kinect.enableUser(SimpleOpenNI.SKEL_PROFILE_NONE); 
 }
 
 void draw()
@@ -24,7 +25,7 @@ void draw()
   for (int i=0; i<userList.size(); i++) { 
     int userId = userList.get(i);
     PVector position = new PVector();
-    kinect.getCoM(userId, position); 3
+    kinect.getCoM(userId, position); 
     kinect.convertRealWorldToProjective(position, position);
     fill(255, 0, 0);
     ellipse(position.x, position.y, 25,25);
