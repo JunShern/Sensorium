@@ -6,7 +6,7 @@ OPC opc;
 
 SimpleOpenNI[] kinects;
 
-int numLightbulbs = 50;
+int numLightbulbs = 80;
 //Lightbulb[] lightbulbs = new Lightbulb[numLightbulbs];
 ArrayList<Lightbulb> lightbulbs = new ArrayList<Lightbulb>();
 

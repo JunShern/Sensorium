@@ -10,6 +10,8 @@ int numKinects = 2;
 int maxDistance = 3000; 
 
 PImage orig;
+
+
 PImage edgeImage;
 PImage fade;
 int REDUCE_FACTOR = 8; // Higher reduce factor increases the smoothing
