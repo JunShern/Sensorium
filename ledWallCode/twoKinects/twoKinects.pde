@@ -71,7 +71,6 @@ void mousePressed() {
   }
   //maxDistance = depthValues[clickIndex]; // depthMap gave us values in (close to) mm!
   println("New threshold : ", maxDistance);
-  
 }
 
 void handleKinect(SimpleOpenNI kinect, int xpos, int ypos) {
@@ -110,7 +109,7 @@ void handleKinect(SimpleOpenNI kinect, int xpos, int ypos) {
   int pixelHeight = height/48;//edgeImage.height;
   int pixelWidth = width/126;//edgeImage.width;
   for (int j=0; j<edgeImage.height; j++) {  
-    for (int i=0; i<edgeImage.width; i++) {
+    for (int i=0; i<edgeImage.width-1; i++) {
       int index = i + j*edgeImage.width;
       fill(edgeImage.pixels[index]);
       //fill(255);
