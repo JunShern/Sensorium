@@ -69,7 +69,7 @@ void mousePressed() {
     depthValues = kinects[1].depthMap();
     clickIndex = mouseX + (mouseY * 640);
   }
-  maxDistance = depthValues[clickIndex]; // depthMap gave us values in (close to) mm!
+  //maxDistance = depthValues[clickIndex]; // depthMap gave us values in (close to) mm!
   println("New threshold : ", maxDistance);
   
 }
