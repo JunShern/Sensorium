@@ -1,5 +1,6 @@
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
+
 import SimpleOpenNI.*;
 
 OPC opc;
@@ -7,7 +8,7 @@ OPC opc;
 SimpleOpenNI[] kinects;
 
 int numKinects = 2;
-int maxDistance = 3000; 
+int maxDistance = 2800; 
 
 PImage orig;
 
@@ -19,7 +20,7 @@ CannyEdgeDetector detector = new CannyEdgeDetector();
 
 void setup()
 {
-  size(1260, 480); // 126 pixels wide, 48 pixels tall 
+  size(1260, 480); // 126 pixels wide, 48 pixels tall `
 
   // Kinect
   kinects = new SimpleOpenNI[numKinects];
