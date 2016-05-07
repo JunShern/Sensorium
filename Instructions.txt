@@ -1,0 +1,7 @@
+1. fadecandy server
+cd into "C:\Users\Jun Shern\Projects\Sensorium\fadecandy-package-02\bin>"
+Run ".\fcserver.exe .\fcserver.json"
+
+2. run the processing sketch
+C:\Users\Jun Shern\Projects\Sensorium\ledWallCode\twoKinects\
+Double click any of the Processing files. Click the PLAY > button.
